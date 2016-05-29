@@ -1,0 +1,19 @@
+{
+    "name": "tkmf/ldap",
+    "description": "LDAP Oriented Object",
+    "authors": [
+        {
+            "name": "Gaëtan Simon",
+            "email": "gaetan.simon@thyssen.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TKMF\\LDAP\\": "src/"
+        }
+    },
+    "require": {
+    },
+    "require-dev": {
+    }
+}
