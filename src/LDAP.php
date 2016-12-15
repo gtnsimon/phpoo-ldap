@@ -9,6 +9,8 @@ namespace TKMF\LDAP;
  */
 class LDAP {
 
+    const LDAP_OPT_DIAGNOSTIC_MESSAGE = 0x0032;
+
     /**
      * @var array */
     private $_options = [
@@ -101,8 +103,10 @@ class LDAP {
     public function modify($fqdn, $attribut, $value) {
         $data = [$attribut => $value];
         $modify = ldap_mod_replace($this->_Sock, $fqdn, $data);
-        if(!$modify)
-            throw new LDAPException($this->_Sock);
+        if(!$modify) {
+            ldap_get_option($this->_Sock, self::LDAP_OPT_DIAGNOSTIC_MESSAGE, $extended_error);
+            throw new LDAPException($this->_Sock, $extended_error);
+        }
         return $modify;
     }
 
@@ -161,6 +165,7 @@ class LDAP {
 
             $bind = @ldap_bind($this->_Sock, $this->_bindUser, $this->_bindPwd);
             if(!$bind) {
+                http_response_code(500);
                 throw new LDAPException($this->_Sock);
             }
         }

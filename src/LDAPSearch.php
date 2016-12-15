@@ -82,6 +82,19 @@ class LDAPSearch extends LDAPComponent
     }
 
     /**
+     * Add a LIKE filter to the query.
+     *
+     * @param string $attribut
+     * @param mixed $value
+     * @return $this
+     */
+    public function like($attribut, $value) {
+        $this->_addFilter($attribut, '*' . LDAPUtil::escape($value) . '*');
+        $this->addAttribute($attribut);
+        return $this;
+    }
+
+    /**
      * Execute the query with a list of attributes to get back.
      *
      * @param array $attributes

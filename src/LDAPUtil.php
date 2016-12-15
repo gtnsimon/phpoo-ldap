@@ -13,6 +13,11 @@ abstract class LDAPUtil {
         '*', '(', ')', '\\', null
     ];
 
+    public static function timestamp($filetime) {
+        $timestamp = (new \DateTime())->setTimestamp(intval($filetime / 10000000 - 11644473600, 10));
+        return $timestamp;
+    }
+
     /**
      * @param string $DNPart
      * @param char $delimiter
